@@ -1,5 +1,13 @@
-<h1>Delete Song</h1>
+{% extends 'base.html' %}
+
+{% block title %}Info{% endblock %}
+
+{% block content %}
+
+<h2>Delete Song</h2>
 <form method="post">{% csrf_token %}
     Are you sure you want to delete the song "{{ object }}" ?
-    <input type="submit" value="Submit" />
+    <input type="submit" class="btn btn-light" value="Submit" />
 </form>
+
+{% endblock %}

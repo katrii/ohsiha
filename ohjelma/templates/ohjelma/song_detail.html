@@ -1,4 +1,12 @@
-<h1>Song Information</h1>
-<h2>Name: {{object.song_name}}</h2>
+{% extends 'base.html' %}
+
+{% block title %}Info{% endblock %}
+
+{% block content %}
+
+<h2>Song Information</h2>
+<h3>Name: {{object.song_name}}</h3>
 Artist: {{object.song_artist}}
 Released: {{object.release_year}}
+
+{% endblock %}
