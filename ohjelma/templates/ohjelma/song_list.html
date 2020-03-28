@@ -1,0 +1,28 @@
+<h1>SONGS</h1>
+
+<table border="2">
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Artist</th>
+    <th>Released</th>
+    <th>View</th>
+    <th>Edit</th>
+    <th>Delete</th>
+    </tr>
+</thead>
+<tbody>
+    {% for song in object_list %}
+    <tr>
+    <td>{{ song.song_name }}</td>
+    <td>{{ song.song_artist }}</td>
+    <td>{{ song.release_year }}</td>
+    <td><a href="{% url "song_view" song.id %}">view</a></td>
+    <td><a href="{% url "song_edit" song.id %}">edit</a></td>
+    <td><a href="{% url "song_delete" song.id %}">delete</a></td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+<a href="{% url "song_new" %}">Add new songs</a>
