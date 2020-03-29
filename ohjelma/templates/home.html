@@ -7,6 +7,7 @@
 
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
+  <p><a href ="{% url 'track_list' %}">View Spotify tracks</a></p>
   <p><a href ="{% url 'song_list' %}">View saved songs</a></p>
   <p><a href="{% url 'logout' %}">Let me out!</a></p>
 {% else %}

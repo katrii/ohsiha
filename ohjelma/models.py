@@ -21,4 +21,14 @@ class Song(models.Model):
 
     def get_absolute_url(self):
         return reverse('song_edit', kwargs={'pk': self.pk})
-        
+
+class Track(models.Model):     
+    track_name = models.CharField(max_length=500)
+    track_artist = models.CharField(max_length = 500)
+    track_duration = models.CharField(max_length = 10)
+    track_popularity = models.IntegerField(default=100)
+
+    def __str__(self):
+        return self.track_name
+
+
