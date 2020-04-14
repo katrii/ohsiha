@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Track Analysis{% endblock %}
+
+{% block content %}
+
+<h2>Track info</h2>
+
+<h4>{{ track.track_name }}</h4>
+Artist: {{ track.track_artist }} <br>
+Duration: {{ track.track_duration }} <br>
+Popularity: {{ track.track_popularity }} <br>
+Danceability: {{ track.track_danceability }} <br>
+Energy: {{ track.track_energy }} <br>
+Loudness: {{ track.track_loudness }} <br>
+Speechiness: {{ track.track_speechiness }} <br>
+Acousticness: {{ track.track_acousticness }} <br>
+Liveness: {{ track.track_liveness }} <br>
+Valence (positiveness conveyed by the track): {{ track.track_valence }}
+
+
+{% endblock %}

@@ -3,9 +3,144 @@
 {% block title %}Tracks{% endblock %}
 
 {% block content %}
+<h2>{{ year }} Overview</h2>
+<br>
+<h4>Analytics</h4>
 
-<h2>Spotify Tracks</h2>
+<div id="container" style="width: 700px; height: 600px; margin: 0 auto"></div>
+<script src="https://code.highcharts.com/highcharts.src.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
+<script>
+Highcharts.chart('container', {
+
+    chart: {
+        type: 'solidgauge',
+        height: '80%',
+    },
+
+    title: {
+        text: 'Average features',
+        style: {
+            fontSize: '24px'
+        }
+    },
+
+    tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        style: {
+            fontSize: '16px'
+        },
+        valueSuffix: '%',
+        pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}</span>',
+        positioner: function (labelWidth) {
+            return {
+                x: (this.chart.chartWidth - labelWidth) / 2,
+                y: (this.chart.plotHeight / 2)
+            };
+        }
+    },
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [
+        { // Track for Danceability
+            outerRadius: '95%',
+            innerRadius: '81%',
+            backgroundColor: Highcharts.color(Highcharts.getOptions().colors[0])
+                .setOpacity(0.3)
+                .get(),
+            borderWidth: 0
+        }, { // Track for Energy
+            outerRadius: '80%',
+            innerRadius: '66%',
+            backgroundColor: Highcharts.color(Highcharts.getOptions().colors[1])
+                .setOpacity(0.3)
+                .get(),
+            borderWidth: 0
+        }, { // Track for Acousticness
+            outerRadius: '65%',
+            innerRadius: '51%',
+            backgroundColor: Highcharts.color(Highcharts.getOptions().colors[2])
+                .setOpacity(0.3)
+                .get(),
+            borderWidth: 0
+        }, { // Track for Valence
+            outerRadius: '50%',
+            innerRadius: '36%',
+            backgroundColor: Highcharts.color(Highcharts.getOptions().colors[3])
+                .setOpacity(0.3)
+                .get(),
+            borderWidth: 0
+        }]
+    },
+
+    yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                enabled: false
+            },
+            linecap: 'round',
+            stickyTracking: false,
+            rounded: true
+        }
+    },
+
+    series: [{
+        name: 'Danceability',
+        data: [{
+            color: Highcharts.getOptions().colors[0],
+            radius: '95%',
+            innerRadius: '81%',
+            y: {{ avgdance }}
+        }]
+    },{
+        name: 'Energy',
+        data: [{
+            color: Highcharts.getOptions().colors[1],
+            radius: '80%',
+            innerRadius: '66%',
+            y: {{ avgene }}
+        }]
+    }, {
+        name: 'Acousticness',
+        data: [{
+            color: Highcharts.getOptions().colors[2],
+            radius: '65%',
+            innerRadius: '51%',
+            y: {{ avgaco }}
+        }]
+    }, {
+        name: 'Valence',
+        data: [{
+            color: Highcharts.getOptions().colors[3],
+            radius: '50%',
+            innerRadius: '36%',
+            y: {{ avgval }}
+        }]
+    }]
+});
+</script>
+<br>
+
+<h4>All tracks</h4>
+The analysis is based on the following tracks.<br>
+Press 'view' to see more details about a track. <br>
+<br>
 <table class = "table table-striped table-dark">
     <thead>
         <tr>
@@ -13,6 +148,8 @@
         <th scope="col">Artist</th>
         <th scope="col">Duration</th>
         <th scope="col">Popularity</th>
+        <th scope="col">Danceability</th>
+        <th scope="col">Details</th>
         </tr>
     </thead>
     <tbody>
@@ -22,9 +159,11 @@
         <td>{{ track.track_artist }}</td>
         <td>{{ track.track_duration}}</td>
         <td>{{ track.track_popularity}}</td>
+        <td>{{ track.track_danceability}}</td>
+        <td><a href="{% url "track_detail" track.id %}">view</a></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-
 {% endblock %}
+
